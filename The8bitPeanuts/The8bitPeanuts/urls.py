@@ -23,6 +23,5 @@ from user_system import views as v_us
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('newJourney/<str:username>/<str:journeyname>', v_hm.newJourney),
-    path('h_m/', v_hm.index),
     path('u/<str:username>', v_us.user_profile)
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
