@@ -20,5 +20,5 @@ from habit_manager import views as v_hm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('h_m/', v_hm.index),
+    path('newJourney/<str:username>/<str:journeyname>', v_hm.newJourney),
 ]
