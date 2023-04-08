@@ -26,5 +26,6 @@ urlpatterns = [
     path('refreshStage/<str:username>/<str:journeyname>/<int:stage>', v_hm.refreshStage),
     path('journeyPicker', v_hm.journeyPicker),
     path('habitPicker/<str:username>/<str:journeyname>/<int:stage>', v_hm.habitPicker),
+    path('completeHabit/<str:username>/<str:journeyname>/<str:habitname>', v_hm.completeHabit),
     path('u/<str:username>', v_us.user_profile)
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
