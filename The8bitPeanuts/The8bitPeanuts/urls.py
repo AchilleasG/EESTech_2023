@@ -24,5 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('newJourney/<str:username>/<str:journeyname>', v_hm.newJourney),
     path('refreshStage/<str:username>/<str:journeyname>/<int:stage>', v_hm.refreshStage),
+    path('journeyPicker', v_hm.journeyPicker),
     path('u/<str:username>', v_us.user_profile)
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

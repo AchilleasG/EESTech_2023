@@ -25,4 +25,16 @@ def refreshStage(request, journeyname, username,stage):
     for i in habits:
         connection = HabitUser.objects.create(habit=i,user=user)
         connection.save()
-    return render(request, 'journey_habit_list.html', {'habits': habits})
+    return HttpResponse("done")
+
+def journeyPicker(request):
+    journey_list = Journey.objects.all()
+    names = []
+    desc = []
+    images = []
+    for i in journey_list:
+        names.append(i.name)
+        desc.append(i.description)
+        images.append(i.image)
+    context = {'names':names, 'descriptions':desc, 'images':images}
+    return render(request, "", context)
