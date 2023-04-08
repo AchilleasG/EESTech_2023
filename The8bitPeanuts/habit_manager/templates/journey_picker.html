@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Page</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: black;
+
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+		.image-container {
+			position: relative;
+			width: 100%;
+
+			padding-bottom: 150%; /* Aspect ratio of 2:3 */
+		}
+		.image-container img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		.title {
+			font-size: 6rem;
+			color : white;
+			font-family: calibri;
+			margin-top: 1rem;
+			text-align: center;
+		}
+		.button-container {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			z-index: 1;
+		}
+		.button {
+			background-color: rgba(0, 0, 0, 0.5);
+			color: #fff;
+			padding: 0.5rem 1rem;
+			border: none;
+			cursor: pointer;
+			font-size: 3rem;
+			transition: background-color 0.3s;
+		}
+		.button:hover {
+			background-color: rgba(0, 0, 0, 0.7);
+		}
+		.text_container{
+		  position:absolute;
+		  left : 10%;
+		  top : 10%;
+		  width: 80%;
+		  height:80%;
+		  color : white;
+          font-size: 4rem;
+          font-family : calibri;
+          text-align : center;
+		  background-color : rgba(0,0,0,0.6);
+		  overflow: scroll;
+		}
+	</style>
+
+    <script>
+    var index = 0;
+    function redirect(){
+    	const ids_i = ('{{ids}}');
+        const ids = JSON.parse(ids_i.replace(/&quot;/g,'"'));
+    	window.location.href = "/newJourney/"+ids[index];
+    }
+      function step (ch){
+      	const names_i = ('{{names}}');
+        const names = JSON.parse(names_i.replace(/&quot;/g,'"'));
+      	if(ch == 1){
+      		index += 1;
+      	}else{index -= 1;}
+      	if(index >= names.length){
+      		index = 0;
+      	}
+      	if(index < 0 ){
+      		index = names.length -1;
+      	}
+      	initial();
+      }
+      function initial(){
+        const names_i = ('{{names}}');
+        const names = JSON.parse(names_i.replace(/&quot;/g,'"'));
+        const images_i = ('{{images}}');
+        const images = JSON.parse(images_i.replace(/&quot;/g,'"'));
+        const desc_i = ('{{descriptions}}');
+        const desc = JSON.parse(desc_i.replace(/&quot;/g,'"'));
+        console.log(names);
+        console.log(images);
+        t = document.getElementById("t");
+        i = document.getElementById("i");
+        d = document.getElementById("d");
+        t.innerHTML = names[index];
+        d.innerHTML = desc[index];
+        i.src = images[index];
+
+      }
+    </script>
+</head>
+<body onload = "initial();">
+	<div class="container">
+		<h1 class="title" , id = "t"></h1>
+		<div class="image-container" onclick = "redirect();">
+			<img  id = "i", src="" alt="Image">
+            <div class = "text_container" id = "d"> <pre></pre></div>
+			<div class="button-container">
+				<button class="button" id="left-button" onclick = "step(-1)">&lt;</button>
+				<button class="button" id="right-button" onclick = step(1)>&gt;</button>
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+		// JavaScript code here
+	</script>
+</body>
+</html>

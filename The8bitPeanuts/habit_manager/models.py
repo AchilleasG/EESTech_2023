@@ -14,6 +14,7 @@ class Habit(models.Model):
 
 class Journey(models.Model):
     name = models.CharField(max_length=200, primary_key=True)
+    r_name = models.CharField(max_length=50)
     stage_count = models.IntegerField(default=0)
     description = models.CharField(max_length=500)
     image = models.ImageField(upload_to='media/journey_images')

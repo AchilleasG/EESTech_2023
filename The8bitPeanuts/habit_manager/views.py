@@ -1,12 +1,20 @@
+import json
+
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from user_system.models import *
 from .models import *
 
-def newJourney(request, username, journeyname):
+def newJourney(request, journeyname):
+    try:
+        username = request.session['username']
+    except KeyError as ke:
+        print("nope")
+        return redirect('/')
     try:
         user = User.objects.get(username=username)
+        print(user)
     except:
         return HttpResponse(404)
     try:
@@ -29,12 +37,15 @@ def refreshStage(request, journeyname, username,stage):
 
 def journeyPicker(request):
     journey_list = Journey.objects.all()
+
     names = []
     desc = []
     images = []
+    ids = []
     for i in journey_list:
-        names.append(i.name)
+        names.append(i.r_name)
+        ids.append(i.name)
         desc.append(i.description)
-        images.append(i.image)
-    context = {'names':names, 'descriptions':desc, 'images':images}
-    return render(request, "", context)
+        images.append(i.image.url)
+    context = {'names':json.dumps(names), 'descriptions':json.dumps(desc), 'images':json.dumps(images), 'ids':json.dumps(ids)}
+    return render(request, "journey_picker.html", context)
