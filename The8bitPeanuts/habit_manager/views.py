@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from user_system.models import *
@@ -38,3 +38,17 @@ def journeyPicker(request):
         images.append(i.image)
     context = {'names':names, 'descriptions':desc, 'images':images}
     return render(request, "", context)
+
+def habitPicker(request, username, journeyname, stage):
+    habits_list = JourneyHabitUser.objects.filter(journey=journeyname, user=username)
+    habits = [journey_habit.habit for journey_habit in habits_list]
+    names = []
+    done = []
+    for i in habits:
+        journey_habit_list = JourneyHabit.objects.filter(habit=i)
+        for j in journey_habit_list:
+            if j.stage == stage:
+                names.append(i.name)
+                done.append(JourneyHabitUser.objects.get(habit=i,journey=journeyname, user=username).done)
+    context = {'names': names, 'done': done}
+    return JsonResponse(context)
