@@ -22,10 +22,13 @@ from habit_manager import views as v_hm
 from user_system import views as v_us
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('newJourney/<str:journeyname>', v_hm.newJourney),
+    path('newJourney/<str:username>/<str:journeyname>', v_hm.newJourney),
     path('refreshStage/<str:username>/<str:journeyname>/<int:stage>', v_hm.refreshStage),
     path('journeyPicker', v_hm.journeyPicker),
     path('u/<str:username>', v_us.user_profile),
     path('login/<str:username>' , v_us.login),
     path('logout/', v_us.logout)
+    path('habitPicker/<str:username>/<str:journeyname>/<int:stage>', v_hm.habitPicker),
+    path('completeHabit/<str:username>/<str:journeyname>/<str:habitname>', v_hm.completeHabit),
+    path('u/<str:username>', v_us.user_profile)
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

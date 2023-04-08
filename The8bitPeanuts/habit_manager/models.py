@@ -36,3 +36,9 @@ class JourneyHabit(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
     journey = models.ForeignKey(Journey, on_delete=models.CASCADE)
     stage = models.IntegerField(default=1)
+
+class JourneyHabitUser(models.Model):
+    habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    journey = models.ForeignKey(Journey, on_delete=models.CASCADE)
+    done = models.BooleanField(default=False)
